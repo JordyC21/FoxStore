@@ -1,0 +1,123 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-image: url(https://avanticentro.com/wp-content/uploads/2021/01/Zapatos-deportivos-1080x650.png);
+    background-size: cover;
+    height: 80px;
+}
+
+.col-lg-5 {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+}
+
+:root {
+    --bg: #3C465C;
+    --primary: #78FFCD;
+    --solid: #fff;
+    --btn-w: 10em;
+    --dot-w: calc(var(--btn-w)*.2);
+    --tr-X: calc(var(--btn-w) - var(--dot-w));
+}
+
+* {
+    box-sizing: border-box;
+}
+
+    *:before, *:after {
+        box-sizing: border-box;
+    }
+
+
+h1 {
+    color: var(--solid);
+    font-size: 2.5rem;
+    margin-top: 6rem;
+}
+
+.btn {
+    position: relative;
+    margin: 0 auto;
+    width: var(--btn-w);
+    color: var(--primary);
+    border: .15em solid var(--primary);
+    border-radius: 5em;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.3em;
+    line-height: 2em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.dot {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: var(--dot-w);
+    height: 100%;
+    border-radius: 100%;
+    transition: all 300ms ease;
+    display: none;
+}
+
+    .dot:after {
+        content: '';
+        position: absolute;
+        left: calc(50% - .4em);
+        top: -.4em;
+        height: .8em;
+        width: .8em;
+        background: var(--primary);
+        border-radius: 1em;
+        border: .25em solid var(--solid);
+        box-shadow: 0 0 .7em var(--solid), 0 0 2em var(--primary);
+    }
+
+.btn:hover .dot,
+.btn:focus .dot {
+    animation: atom 2s infinite linear;
+    display: block;
+}
+
+@keyframes atom {
+    0% {
+        transform: translateX(0) rotate(0);
+    }
+
+    30% {
+        transform: translateX(var(--tr-X)) rotate(0);
+    }
+
+    50% {
+        transform: translateX(var(--tr-X)) rotate(180deg);
+    }
+
+    80% {
+        transform: translateX(0) rotate(180deg);
+    }
+
+    100% {
+        transform: translateX(0) rotate(360deg);
+    }
+}
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Opcional, ajusta la altura del contenedor según sea necesario */
+}
+
+.SinCuenta {
+    text-align: center;
+}

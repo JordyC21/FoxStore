@@ -1,0 +1,6 @@
+C:\Users\jordy\Videos\MJ-main\Jordy(Avanzado)\Foxstore\Utilidad\bin\Debug\Utilidad.dll
+C:\Users\jordy\Videos\MJ-main\Jordy(Avanzado)\Foxstore\Utilidad\bin\Debug\Utilidad.pdb
+C:\Users\jordy\Videos\MJ-main\Jordy(Avanzado)\Foxstore\Utilidad\obj\Debug\Utilidad.csproj.AssemblyReference.cache
+C:\Users\jordy\Videos\MJ-main\Jordy(Avanzado)\Foxstore\Utilidad\obj\Debug\Utilidad.csproj.CoreCompileInputs.cache
+C:\Users\jordy\Videos\MJ-main\Jordy(Avanzado)\Foxstore\Utilidad\obj\Debug\Utilidad.dll
+C:\Users\jordy\Videos\MJ-main\Jordy(Avanzado)\Foxstore\Utilidad\obj\Debug\Utilidad.pdb
