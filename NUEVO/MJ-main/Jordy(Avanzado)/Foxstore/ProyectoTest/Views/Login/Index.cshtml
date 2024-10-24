@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/JavaScript.js")
+    @Styles.Render("~/Content/ccsLogin.css")
+
+    <style>
+        .no-underline {
+            text-decoration: none;
+        }
+
+        .btn-sm {
+            font-size: 15px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="text-center">
+                                <img class="mx-auto d-block" src="~/Imagenes/archivos/logo.png" alt="Logo de Mi Aplicación" style="width: 100px; height: auto;">
+                                <div><h3 class="text-center text-light h1">Login</h3></div>
+                                <div class="card-body">
+                                    <form action="@Url.Content("~/Login/Index")" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="inputEmail" name="NCorreo" type="email" placeholder="name@example.com" value="admin@example.com" />
+                                            <label for="inputEmail">Correo</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="inputPassword" name="NContrasena" type="password" placeholder="Contraseña" autocomplete="off" value="admin123" />
+                                            <label for="inputPassword">Contraseña</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            @{if (ViewBag.Error != null)
+                                                {
+                                                    <div class="alert alert-danger" role="alert">
+                                                        @ViewBag.Error
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="container">
+                                            <span class="dot"></span>
+                                            <button class="btn" type="submit">Ingresar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="SinCuenta"><a class="btn-secondary btn-sm active no-underline" role="button" aria-pressed="true" href="@Url.Action("IndexProductos","Tienda")">Continuar sin cuenta</a></div>
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="small"><a id="publicidad_cuenta" href="@Url.Action("Registrarse","Login")">Necesitas una cuenta? Registrate!</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script></script>
+</body>
+</html>

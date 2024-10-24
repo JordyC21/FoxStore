@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Compras";
+    Layout = "~/Views/Shared/_Layout_Tienda.cshtml";
+}
+<style>
+    .accordion-button {
+        cursor: pointer !important;
+    }
+
+    .factura-info {
+        margin-bottom: 10px;
+    }
+
+        .factura-info label {
+            font-weight: bold;
+        }
+
+    .factura-total {
+        margin-top: 20px;
+    }
+
+    .btn-descargar-factura {
+        margin-top: 10px;
+    }
+</style>
+<div class="row mt-5 pt-4">
+    <div class="col-12">
+        <h4>Mis Compras</h4>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body bg-secondary">
+                <div class="accordion" id="accordion_articulos"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function zeroFill(number, width) {
+            width -= number.toString().length;
+            if (width > 0) {
+                return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
+            }
+            return number + ""; // always return a string
+        }
+
+        $(document).ready(function () {
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerCompra", "Tienda")',
+                type: "GET",
+                data: null,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data.lista != null) {
+                        $.each(data.lista, function (i, v) {
+                            var accordion_item = $("<div>").addClass("accordion-item");
+
+                            var accordion_header = $("<div>").addClass("accordion-header").append(
+                                $("<div>").addClass("accordion-button collapsed").attr({ "data-bs-toggle": "collapse", "data-bs-target": "#collapse" + i, "aria-expanded": "false" }).append(
+                                    $("<div>").addClass("d-flex justify-content-between w-100").append(
+                                        $("<div>").text("N° " + zeroFill(i + 1, 6)),
+                                        $("<div>").addClass("me-4").text("Fecha Compra: " + v.FechaTexto)
+                                    )
+                                )
+                            );
+
+                            var accordion_collapse = $("<div>").attr({ "id": "collapse" + i }).addClass("accordion-collapse collapse");
+
+                            var accordion_body = $("<div>").addClass("accordion-body");
+                            $.each(v.oDetalleCompra, function (x, dc) {
+                                var detalle_item = $("<div>").addClass("factura-info");
+                                detalle_item.append($("<label>").text("Producto: "), $("<span>").text(dc.oProducto.Nombre + " "));
+                                detalle_item.append($("<label>").text("Cantidad: "), $("<span>").text(dc.Cantidad + " "));
+                                detalle_item.append($("<label>").text("Total: $ "), $("<span>").text(dc.Total));
+
+                                accordion_body.append(detalle_item);
+                            });
+
+                            var total_info = $("<div>").addClass("factura-total");
+                            total_info.append($("<label>").text("Total Importe: "), $("<span>").text(" $" + v.Total));
+
+                            var btn_descargar = $("<button>").addClass("btn btn-primary btn-descargar-factura").text("Descargar Factura").attr("data-idCompra", v.IdCompra); // Modificamos aquí para agregar el atributo data-idCompra
+                            accordion_body.append(total_info, btn_descargar);
+
+                            accordion_collapse.append(accordion_body);
+
+                            accordion_item.append(accordion_header);
+                            accordion_item.append(accordion_collapse);
+
+                            $("#accordion_articulos").append(accordion_item);
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+                beforeSend: function () {
+                    $(".modal-body").LoadingOverlay("show");
+                },
+            });
+        });
+
+        // Función para descargar la factura correspondiente a la compra seleccionada
+        $(document).on("click", ".btn-descargar-factura", function () {
+            var idCompra = $(this).data("idCompra");
+            descargarFactura(idCompra);
+        });
+
+        function descargarFactura(idCompra) {
+            // Redirigir a la acción DescargarFactura con el idCompra seleccionado
+            window.location.href = '@Url.Action("DescargarFactura", "Tienda")' + '?idCompra=' + idCompra;
+        }
+
+    </script>
+}
